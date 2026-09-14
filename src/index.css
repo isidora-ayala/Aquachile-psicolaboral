@@ -1,0 +1,64 @@
+form{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 420px;
+    margin: 30 auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    font-family: 'Segoe UI', sans-serif;
+}
+
+form > div {
+    display: flex;
+    flex-direction: column;
+    gap: 6px
+}
+
+forma label {
+    font-weight: 600;
+    font-size: 14px;
+    color: #333;
+}
+
+form input[type="text"]{
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: border-color 0.2s;
+}
+
+form input[type="text"]:focus {
+    outline: none;
+    border-color: #4a90d9;
+}
+
+form input[type="file"]{
+    padding: 8px 0;
+    font-size: 13px;
+}
+
+form button{
+    padding: 12px;
+    background-color: #4a90d9;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+form button:hover{
+    background-color: #3a75b0;
+}
+
+h1{
+    text-align: center;
+    color: #2c3e50;
+    margin-top: 2rem;
+}
