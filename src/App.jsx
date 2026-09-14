@@ -1,5 +1,4 @@
-import { useState } from 'react'
-import Formulario from './components/Formulario/formulario';
+import Formulario from './components/Formulario/Formulario';
 function App() {
   return (
     <div style={{ padding: '2rem' }}>
