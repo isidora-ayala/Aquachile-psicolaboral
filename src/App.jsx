@@ -1,4 +1,4 @@
-import Formulario from './components/Formulario/Formulario';
+import Formulario from './components/Formulario/formulario';
 function App() {
   return (
     <div style={{ padding: '2rem' }}>

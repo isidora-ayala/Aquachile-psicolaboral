@@ -1,15 +1,17 @@
 import { useState } from 'react';
 
-function Formulario() {
-  // Estado para almacenar los datos del formulario
+function FormularioCandidato() {
+  // Estado con los campos requeridos en la Sección 7.1 del anexo
   const [formData, setFormData] = useState({
-    nombreCandidato: '',
+    nombre: '',
+    correo: '',
+    telefono: '',
     familiaCargo: '',
-    nombreCargo: '',
-    cvFile: null
+    cargoPostula: '',
+    cvFile: null // Opcional / Extra
   });
 
-  // Manejador para los campos de texto
+  // Manejador genérico para inputs de texto/email/teléfono
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -18,7 +20,7 @@ function Formulario() {
     });
   };
 
-  // Manejador específico para el archivo PDF / Word
+  // Manejador específico para el archivo PDF/Word (si decides mantenerlo)
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     setFormData({
@@ -27,31 +29,58 @@ function Formulario() {
     });
   };
 
-  // Manejador del envío del formulario
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Datos del formulario:', formData);
-    alert('Formulario listo para enviarse');
+    console.log('Datos del Candidato a registrar:', formData);
+    alert('Candidato registrado con éxito');
   };
 
   return (
     <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem', maxWidth: '400px' }}>
-      {/* a. Nombre del candidato */}
+      <h2>Registro de Candidato</h2>
+
+      {/* 1. Nombre del candidato */}
       <div>
-        <label htmlFor="nombreCandidato">Nombre del candidato:</label>
+        <label htmlFor="nombre">Nombre Completo:</label>
         <input
           type="text"
-          id="nombreCandidato"
-          name="nombreCandidato"
-          value={formData.nombreCandidato}
+          id="nombre"
+          name="nombre"
+          value={formData.nombre}
           onChange={handleChange}
           required
         />
       </div>
 
-      {/* b. Familia de cargo */}
+      {/* 2. Correo electrónico (Agregado segun requerimiento 7.1) */}
       <div>
-        <label htmlFor="familiaCargo">Familia de cargo:</label>
+        <label htmlFor="correo">Correo Electrónico:</label>
+        <input
+          type="email"
+          id="correo"
+          name="correo"
+          value={formData.correo}
+          onChange={handleChange}
+          required
+        />
+      </div>
+
+      {/* 3. Teléfono (Agregado segun requerimiento 7.1) */}
+      <div>
+        <label htmlFor="telefono">Teléfono:</label>
+        <input
+          type="tel"
+          id="telefono"
+          name="telefono"
+          value={formData.telefono}
+          onChange={handleChange}
+          required
+        />
+      </div>
+
+      {/* 4. Familia de cargo */}
+      <div>
+        <label htmlFor="familiaCargo">Familia de Cargo:</label>
         <input
           type="text"
           id="familiaCargo"
@@ -62,29 +91,28 @@ function Formulario() {
         />
       </div>
 
-      {/* c. Nombre del cargo */}
+      {/* 5. Cargo al que postula */}
       <div>
-        <label htmlFor="nombreCargo">Nombre del cargo:</label>
+        <label htmlFor="cargoPostula">Cargo al que Postula:</label>
         <input
           type="text"
-          id="nombreCargo"
-          name="nombreCargo"
-          value={formData.nombreCargo}
+          id="cargoPostula"
+          name="cargoPostula"
+          value={formData.cargoPostula}
           onChange={handleChange}
           required
         />
       </div>
 
-      {/* d. Curriculum Vitae (CV) */}
+      {/* 6. Adjunto de CV (Opcional según requerimiento) */}
       <div>
-        <label htmlFor="cvFile">Curriculum Vitae (CV):</label>
+        <label htmlFor="cvFile">Curriculum Vitae (PDF/Word):</label>
         <input
           type="file"
           id="cvFile"
           name="cvFile"
           accept=".pdf,.doc,.docx"
           onChange={handleFileChange}
-          required
         />
       </div>
 
@@ -93,4 +121,4 @@ function Formulario() {
   );
 }
 
-export default Formulario;
+export default FormularioCandidato;
