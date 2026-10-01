@@ -38,12 +38,13 @@ forma label {
     color: #333;
 }
 
-form input[type="text"]{
-    padding: 10px 12px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
+form input[type="text"],
+form input[type="email"],
+form input[type="tel"]{
+    padding: 4px 6px;
+    border: 1px solid #767676;
+    border-radius: 0;
     font-size: 14px;
-    transition: border-color 0.2s;
 }
 
 form input[type="text"]:focus {
