@@ -1,14 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+body{
+    margin: 0;
+    min-height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    background-image: url('./assets/fondo.jpg');
+    background-size: cover;
+    background-position: center 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
 form{
     display: flex;
     flex-direction: column;
     gap: 20px;
-    max-width: 420px;
-    margin: 30 auto;
+    width: 92%;
+    max-width: none;
+    margin: 30px auto;
     padding: 30px;
     background-color: #ffffff;
+    color: #1b2a4a;
     border-radius: 12px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
 form > div {
@@ -59,6 +74,6 @@ form button:hover{
 
 h1{
     text-align: center;
-    color: #2c3e50;
+    color: #ffffff;
     margin-top: 2rem;
 }
