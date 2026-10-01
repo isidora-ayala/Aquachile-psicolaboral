@@ -1,16 +1,24 @@
-# React + Vite
+# AquaChile | DSY1104 Desarrollo FullStack II
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+# Descripción de AquaChile
+El área de reclutamiento y selección de AquaChile realiza evaluaciones psicolaborales de candidatos, pero el proceso depende en gran parte de tareas manuales y repetitivas que consumen tiempo y aumentan el riesgo de errores.
 
-Currently, two official plugins are available:
+# Situación actual
+Un analista solicita la evolución por Microsoft Forms (nombre del candidato, email, teléfono, familia de cargo, carsgo y CV), uego el psicólogo debe hacer a mano:
+* Descargar el CV, crear una carpeta en OneDrive y subir las plantillas según el cargo de familia.
+* Entrevistar al candidato, tomar apuntes y generar la transcripción.
+* Subir los aarchivos a Copilot, copiar y pegar el resultado en el Excel del informe, revisarlo y enviarlo por correo.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+# Problemas principales
+*1.-* Gstión manual inicial: crear carpetas y copiar plantillas para cada candidato.
 
-## React Compiler
+*2.-* Traspaso manual de información: copiar el análisis de Copilot al Excel.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+*3.-* Entrevista poco estandarizadas: no hay apoyo para profundizar durante la conversación.
 
-## Expanding the Oxlint configuration
+# Consecuencias
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+Más tiempo operativo, riesgo de errores, psicólogos dedicados a tareas administrativas y resultados poco consistentes entre entrevistas.
+
+# Solución propuesta
+Automatizar el proceso completo con Forms, Power Automate, OneDrive/SharePoint y Copilot en tres etapas: Creacióon automática de carpeta y documetos, traspaso automático del análisis al informe y un asistente de Copilot para las entrevistas.
