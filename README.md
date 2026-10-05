@@ -24,16 +24,16 @@ Más tiempo operativo, riesgo de errores, psicólogos dedicados a tareas adminis
 Automatizar el proceso completo con Forms, Power Automate, OneDrive/SharePoint y Copilot en tres etapas: Creacióon automática de carpeta y documetos, traspaso automático del análisis al informe y un asistente de Copilot para las entrevistas.
 
 # Equipo
-| Nombre                                       | Github             |
-|----------------------------------------------|--------------------|
-| Isidora Ayala (Desarrolladora FullStack)     | isidora-ayala      |
-| Álvaro Oyarzun (Desarrollador FullStack)     | Majelss            |
-| Benjamin Almonacid (Desarrollador FullStack) | benjamin-almonacid | 
+| Nombre                                       | Github             | Rol            |
+|----------------------------------------------|--------------------|----------------|
+| Isidora Ayala (Desarrolladora FullStack)     | isidora-ayala      | Frontend       |
+| Álvaro Oyarzun (Desarrollador FullStack)     | Majelss            | Base de datos  |
+| Benjamin Almonacid (Desarrollador FullStack) | benjamin-almonacid | Backend        |
 
 # Tecnologías Trabajadas
-| Nombre tecnología  | Versión       |
-|--------------------|---------------|
-| HTML               | 5             |
-| CSS (bootstrap)    | 5.3.8         |
-| JavaScript (react) | 19.2.8        |
-| Oracle             | sql Developer |
+| Nombre tecnología    | Versión       |
+|----------------------|---------------|
+| HTML                 | 5             |
+| CSS (bootstrap)      | 5.3.8         |
+| JavaScript (react)   | 19.2.8        |
+| Oracle sql Developer | 24.3.1.       |
