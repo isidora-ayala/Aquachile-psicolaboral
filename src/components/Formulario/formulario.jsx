@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import logo from '../../assets/logoAquaChile.webp';
 
 function FormularioCandidato() {
   // Estado con los campos requeridos en la Sección 7.1 del anexo
@@ -37,7 +38,10 @@ function FormularioCandidato() {
 
   return (
     <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem', maxWidth: '400px' }}>
-      <h2>Registro de Candidato</h2>
+        <div className="encabezado-form">
+            <img src={logo} alt="Logo AquaChile" className="logo-form" />
+            <h2>Registro de Candidato</h2>
+        </div>
 
       {/* 1. Nombre del candidato */}
       <div>

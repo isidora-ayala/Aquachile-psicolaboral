@@ -78,3 +78,18 @@ h1{
     color: #ffffff;
     margin-top: 2rem;
 }
+
+.encabezado-form{
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.logo-form{
+    width: 120%;
+max-width: 200px;
+}
+
+.encabezado-form h2 {
+    margin: 0;
+}
