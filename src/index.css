@@ -1,14 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+body{
+    margin: 0;
+    min-height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    background-image: url('./assets/fondo.jpg');
+    background-size: cover;
+    background-position: center 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
 form{
     display: flex;
     flex-direction: column;
     gap: 20px;
-    max-width: 420px;
-    margin: 30 auto;
+    width: 92%;
+    max-width: none;
+    margin: 30px auto;
     padding: 30px;
     background-color: #ffffff;
+    color: #1b2a4a;
     border-radius: 12px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
 form > div {
@@ -23,12 +38,13 @@ forma label {
     color: #333;
 }
 
-form input[type="text"]{
-    padding: 10px 12px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
+form input[type="text"],
+form input[type="email"],
+form input[type="tel"]{
+    padding: 4px 6px;
+    border: 1px solid #767676;
+    border-radius: 0;
     font-size: 14px;
-    transition: border-color 0.2s;
 }
 
 form input[type="text"]:focus {
@@ -59,6 +75,21 @@ form button:hover{
 
 h1{
     text-align: center;
-    color: #2c3e50;
+    color: #ffffff;
     margin-top: 2rem;
+}
+
+.encabezado-form{
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.logo-form{
+    width: 120%;
+max-width: 200px;
+}
+
+.encabezado-form h2 {
+    margin: 0;
 }
