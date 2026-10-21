@@ -1,20 +1,23 @@
 ﻿@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
 :root {
-  --salmon-50: #fff5f0;
-  --salmon-100: #ffe8dc;
-  --salmon-200: #ffd0b8;
-  --salmon-300: #ffad87;
-  --salmon-400: #ff8555;
-  --salmon-500: #ff6b35;
-  --salmon-600: #e85a2c;
-  --salmon-700: #c44723;
-  --salmon-800: #9d381e;
-  --salmon-900: #7d2f1c;
+  --navy-900: #2F3A3F;
+  --navy-700: #3F4F5F;
+  --navy-500: #5F7080;
 
-  --navy-900: #1b2a4a;
-  --navy-700: #2c3e6b;
-  --navy-500: #3d5a8c;
+  --salmon-50: #F6F1E8;
+  --salmon-100: #FFD1C1;
+  --salmon-200: #FFE0D0;
+  --salmon-300: #FFA07A;
+  --salmon-400: #FFB68E;
+  --salmon-500: #FF8C55;
+  --salmon-600: #FF6E4A;
+  --salmon-700: #E85D25;
+  --salmon-800: #D44A1F;
+  --salmon-900: #BE3A12;
+
+  --teal-500: #8EC9C3;
+  --teal-100: #B2DFDB;
 
   --success: #28a745;
   --success-light: #d4edda;
