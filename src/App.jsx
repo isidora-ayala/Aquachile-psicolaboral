@@ -87,6 +87,10 @@ function AppRoutes() {
         element={isAuthenticated ? <Navigate to="/" replace /> : <Login />}
       />
       <Route
+        path="/formulario"
+        element={isAuthenticated ? <Navigate to="/" replace /> : <Formulario />}
+      />
+      <Route
         path="/"
         element={
           <ProtectedRoute allowedRoles={['ANALISTA', 'EVALUADOR', 'ADMIN']}>
