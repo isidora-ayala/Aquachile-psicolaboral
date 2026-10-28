@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Navigate, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, Link, useLocation } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { ProtectedRoute } from './components/auth/ProtectedRoute';
 import Login from './pages/Login';
@@ -6,7 +6,7 @@ import Dashboard from './pages/Dashboard';
 import Candidatos from './pages/Candidatos';
 import Solicitudes from './pages/Solicitudes';
 import Evaluacion from './pages/Evaluacion';
-import Formulario from './components/Formulario/formulario';
+import FormularioPage from './pages/FormularioPage';
 import logo from './assets/logoAquaChile.webp';
 
 function Navbar() {
@@ -77,7 +77,7 @@ function Navbar() {
   );
 }
 
-function AppRoutes() {
+function FullscreenRoutes() {
   const { isAuthenticated } = useAuth();
 
   return (
@@ -88,8 +88,15 @@ function AppRoutes() {
       />
       <Route
         path="/formulario"
-        element={isAuthenticated ? <Navigate to="/" replace /> : <Formulario />}
+        element={isAuthenticated ? <Navigate to="/" replace /> : <FormularioPage />}
       />
+    </Routes>
+  );
+}
+
+function LayoutRoutes() {
+  return (
+    <Routes>
       <Route
         path="/"
         element={
@@ -127,16 +134,33 @@ function AppRoutes() {
   );
 }
 
+function AppContent() {
+  const { isAuthenticated } = useAuth();
+  const location = useLocation();
+
+  // Rutas fullscreen (sin navbar ni container)
+  const fullscreenPaths = ['/login', '/formulario'];
+  const isFullscreen = fullscreenPaths.includes(location.pathname);
+
+  if (isFullscreen) {
+    return <FullscreenRoutes />;
+  }
+
+  return (
+    <div className="min-vh-100 d-flex flex-column">
+      <Navbar />
+      <main className="flex-grow-1 container py-4">
+        <LayoutRoutes />
+      </main>
+    </div>
+  );
+}
+
 function AppLayout() {
   return (
     <AuthProvider>
       <Router>
-        <div className="min-vh-100 d-flex flex-column">
-          <Navbar />
-          <main className="flex-grow-1 container py-4">
-            <AppRoutes />
-          </main>
-        </div>
+        <AppContent />
       </Router>
     </AuthProvider>
   );

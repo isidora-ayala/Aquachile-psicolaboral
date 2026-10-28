@@ -33,6 +33,7 @@ function FormularioCandidato() {
     }
   };
 
+  // Manejador específico para el archivo PDF/Word (si decides mantenerlo)
   const handleFileChange = (e) => {
     setFormData(prev => ({ ...prev, cvFile: e.target.files[0] }));
   };

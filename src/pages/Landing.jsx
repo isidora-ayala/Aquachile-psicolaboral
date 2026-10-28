@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import FormularioCandidato from '../components/Formulario/formulario';
 import logo from '../assets/logoAquaChile.webp';
-import heroBg from '../assets/hero_bg.jpg';
+import fondoBg from '../assets/fondo.jpg';
 
 export default function Landing() {
   const { login } = useAuth();
@@ -14,9 +14,6 @@ export default function Landing() {
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
   const [loginLoading, setLoginLoading] = useState(false);
-
-  // Modal de postulación
-  const [showModal, setShowModal] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -32,54 +29,58 @@ export default function Landing() {
   };
 
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', position: 'relative', overflow: 'hidden' }}>
+    <div style={{
+      minHeight: '100vh',
+      display: 'flex',
+      flexDirection: 'column',
+      position: 'relative',
+      overflow: 'hidden'
+    }}>
 
-      {/* ── Fondo hero ── */}
+      {/* ── Fondo con imagen ── */}
       <div style={{
         position: 'fixed',
         inset: 0,
-        backgroundImage: `url(${heroBg})`,
+        backgroundImage: `url(${fondoBg})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         zIndex: 0
       }} />
-      {/* Overlay oscuro degradado */}
+      {/* Overlay sutil para legibilidad */}
       <div style={{
         position: 'fixed',
         inset: 0,
-        background: 'linear-gradient(135deg, rgba(20,35,48,0.82) 0%, rgba(20,35,48,0.55) 50%, rgba(20,35,48,0.72) 100%)',
+        background: 'linear-gradient(135deg, rgba(15,30,60,0.45) 0%, rgba(15,30,60,0.2) 50%, rgba(15,30,60,0.35) 100%)',
         zIndex: 1
       }} />
 
-      {/* ── Navbar superior ── */}
+      {/* ── Navbar superior con login ── */}
       <header style={{
         position: 'relative',
         zIndex: 10,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        padding: '1.25rem 3rem',
+        padding: '1rem 2.5rem',
         backdropFilter: 'blur(4px)',
-        borderBottom: '1px solid rgba(255,255,255,0.08)'
+        borderBottom: '1px solid rgba(255,255,255,0.1)'
       }}>
-        {/* Logo */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-          <img src={logo} alt="AquaChile" style={{ height: '42px', filter: 'brightness(1.1)' }} />
-          <span style={{ color: '#fff', fontWeight: 700, fontSize: '1.2rem', letterSpacing: '-0.3px' }}>
+          <img src={logo} alt="AquaChile" style={{ height: '38px', filter: 'brightness(1.1)' }} />
+          <span style={{ color: '#fff', fontWeight: 700, fontSize: '1.1rem', letterSpacing: '-0.3px' }}>
             AquaChile
           </span>
         </div>
 
-        {/* Login compacto en navbar */}
         <form onSubmit={handleLogin} style={{
           display: 'flex',
           alignItems: 'center',
-          gap: '0.625rem',
-          background: 'rgba(255,255,255,0.08)',
+          gap: '0.5rem',
+          background: 'rgba(255,255,255,0.1)',
           backdropFilter: 'blur(12px)',
-          border: '1px solid rgba(255,255,255,0.18)',
-          borderRadius: '12px',
-          padding: '0.625rem 1rem'
+          border: '1px solid rgba(255,255,255,0.2)',
+          borderRadius: '10px',
+          padding: '0.5rem 0.875rem'
         }}>
           <input
             type="email"
@@ -93,11 +94,11 @@ export default function Landing() {
               border: 'none',
               outline: 'none',
               color: '#fff',
-              fontSize: '0.875rem',
-              width: '170px',
+              fontSize: '0.85rem',
+              width: '160px',
             }}
           />
-          <div style={{ width: '1px', height: '20px', background: 'rgba(255,255,255,0.3)' }} />
+          <div style={{ width: '1px', height: '18px', background: 'rgba(255,255,255,0.3)' }} />
           <input
             type="password"
             value={password}
@@ -110,8 +111,8 @@ export default function Landing() {
               border: 'none',
               outline: 'none',
               color: '#fff',
-              fontSize: '0.875rem',
-              width: '120px',
+              fontSize: '0.85rem',
+              width: '110px',
             }}
           />
           <button
@@ -122,9 +123,9 @@ export default function Landing() {
               color: '#fff',
               border: 'none',
               borderRadius: '8px',
-              padding: '0.5rem 1.1rem',
+              padding: '0.45rem 1rem',
               fontWeight: 600,
-              fontSize: '0.875rem',
+              fontSize: '0.85rem',
               cursor: 'pointer',
               transition: 'background 0.2s',
               whiteSpace: 'nowrap'
@@ -141,7 +142,6 @@ export default function Landing() {
           position: 'relative',
           zIndex: 10,
           textAlign: 'center',
-          marginTop: '-0.5rem',
           padding: '0.5rem',
           color: '#ffb3b3',
           fontSize: '0.875rem',
@@ -151,230 +151,105 @@ export default function Landing() {
         </div>
       )}
 
-      {/* ── Hero central ── */}
+      {/* ── Contenido central: card con formulario ── */}
       <main style={{
         position: 'relative',
         zIndex: 10,
         flex: 1,
         display: 'flex',
-        flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '4rem 2rem',
-        textAlign: 'center'
-      }}>
-        <p style={{
-          color: 'var(--salmon-300)',
-          fontWeight: 600,
-          fontSize: '0.875rem',
-          letterSpacing: '2px',
-          textTransform: 'uppercase',
-          marginBottom: '1rem'
-        }}>
-          Patagonia · Chile
-        </p>
-        <h1 style={{
-          color: '#fff',
-          fontSize: 'clamp(2.5rem, 6vw, 4.5rem)',
-          fontWeight: 800,
-          lineHeight: 1.1,
-          marginBottom: '1.5rem',
-          maxWidth: '800px',
-          textShadow: '0 2px 20px rgba(0,0,0,0.3)'
-        }}>
-          Cultivamos el mar,<br />
-          <span style={{ color: 'var(--salmon-300)' }}>construimos futuro</span>
-        </h1>
-        <p style={{
-          color: 'rgba(255,255,255,0.75)',
-          fontSize: '1.125rem',
-          maxWidth: '560px',
-          lineHeight: 1.7,
-          marginBottom: '0'
-        }}>
-          Somos una de las principales empresas salmoneras de Chile. Si quieres ser parte de nuestro equipo, postula a continuación.
-        </p>
-      </main>
-
-      {/* ── Sección "Trabaja con nosotros" (pie de página) ── */}
-      <section style={{
-        position: 'relative',
-        zIndex: 10,
-        padding: '3rem 2rem',
-        display: 'flex',
-        justifyContent: 'center'
+        padding: '2rem'
       }}>
         <div style={{
-          background: 'rgba(255,255,255,0.07)',
+          background: 'rgba(255,255,255,0.95)',
           backdropFilter: 'blur(20px)',
-          border: '1px solid rgba(255,255,255,0.15)',
           borderRadius: '20px',
-          padding: '2.5rem 3rem',
-          maxWidth: '700px',
+          boxShadow: '0 25px 60px rgba(0,0,0,0.25), 0 0 0 1px rgba(255,255,255,0.2)',
           width: '100%',
-          textAlign: 'center'
+          maxWidth: '520px',
+          padding: '2.5rem',
+          animation: 'cardIn 0.4s ease'
         }}>
-          {/* Icono decorativo */}
+          {/* Encabezado del formulario */}
           <div style={{
-            width: '56px',
-            height: '56px',
-            borderRadius: '16px',
-            background: 'var(--salmon-500)',
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center',
-            margin: '0 auto 1.25rem',
-            fontSize: '1.5rem'
-          }}>
-            <i className="bi bi-person-plus-fill" style={{ color: '#fff' }} />
-          </div>
-
-          <h2 style={{
-            color: '#fff',
-            fontWeight: 700,
-            fontSize: '1.75rem',
+            gap: '0.875rem',
             marginBottom: '0.5rem'
           }}>
-            Trabaja con nosotros
-          </h2>
-          <p style={{
-            color: 'rgba(255,255,255,0.65)',
-            marginBottom: '1.75rem',
-            fontSize: '1rem',
-            lineHeight: 1.6
-          }}>
-            Únete a nuestro equipo. Completa el formulario y un representante de selección se pondrá en contacto contigo.
-          </p>
-
-          {/* Chips de beneficios */}
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.625rem', justifyContent: 'center', marginBottom: '2rem' }}>
-            {['🌊 Entorno natural único', '📈 Crecimiento profesional', '🤝 Equipo colaborativo', '🏥 Beneficios de salud'].map(b => (
-              <span key={b} style={{
-                background: 'rgba(255,255,255,0.1)',
-                border: '1px solid rgba(255,255,255,0.18)',
-                color: 'rgba(255,255,255,0.85)',
-                borderRadius: '20px',
-                padding: '0.375rem 1rem',
+            <img src={logo} alt="AquaChile" style={{ height: '36px' }} />
+            <div>
+              <h2 style={{
+                margin: 0,
+                fontWeight: 700,
+                fontSize: '1.35rem',
+                color: 'var(--navy-900)'
+              }}>
+                Postulación
+              </h2>
+              <p style={{
+                margin: 0,
                 fontSize: '0.8125rem',
-                fontWeight: 500
+                color: 'var(--gray-600)'
+              }}>
+                AquaChile S.A.
+              </p>
+            </div>
+          </div>
+
+          {/* Separador */}
+          <div style={{
+            height: '1px',
+            background: 'var(--gray-200)',
+            margin: '1rem 0 1.5rem'
+          }} />
+
+          {/* Beneficios como chips */}
+          <div style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: '0.5rem',
+            marginBottom: '1.5rem'
+          }}>
+            {['🌊 Entorno natural', '📈 Crecimiento', '🤝 Equipo', '🏥 Beneficios'].map(b => (
+              <span key={b} style={{
+                background: 'var(--salmon-50)',
+                color: 'var(--salmon-800)',
+                borderRadius: '16px',
+                padding: '0.25rem 0.75rem',
+                fontSize: '0.75rem',
+                fontWeight: 500,
+                border: '1px solid var(--salmon-100)'
               }}>
                 {b}
               </span>
             ))}
           </div>
 
-          <button
-            onClick={() => setShowModal(true)}
-            style={{
-              background: 'var(--salmon-500)',
-              color: '#fff',
-              border: 'none',
-              borderRadius: '12px',
-              padding: '0.875rem 2.5rem',
-              fontWeight: 700,
-              fontSize: '1rem',
-              cursor: 'pointer',
-              transition: 'all 0.2s',
-              boxShadow: '0 4px 20px rgba(255,107,53,0.4)',
-              letterSpacing: '0.3px'
-            }}
-            onMouseEnter={e => e.currentTarget.style.background = 'var(--salmon-600)'}
-            onMouseLeave={e => e.currentTarget.style.background = 'var(--salmon-500)'}
-          >
-            Postular ahora →
-          </button>
+          {/* Formulario */}
+          <FormularioCandidato onSuccess={() => {}} />
         </div>
-      </section>
+      </main>
 
       {/* ── Footer mínimo ── */}
       <footer style={{
         position: 'relative',
         zIndex: 10,
         textAlign: 'center',
-        padding: '1.25rem',
-        color: 'rgba(255,255,255,0.35)',
-        fontSize: '0.8125rem',
+        padding: '1rem',
+        color: 'rgba(255,255,255,0.4)',
+        fontSize: '0.8rem',
         borderTop: '1px solid rgba(255,255,255,0.06)'
       }}>
         © {new Date().getFullYear()} AquaChile S.A. — Sistema de Evaluación Psicolaboral
       </footer>
 
-      {/* ── Modal de postulación ── */}
-      {showModal && (
-        <div
-          style={{
-            position: 'fixed',
-            inset: 0,
-            background: 'rgba(10,20,30,0.7)',
-            backdropFilter: 'blur(6px)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            zIndex: 100,
-            padding: '1rem',
-            animation: 'fadeIn 0.2s ease'
-          }}
-          onClick={e => { if (e.target === e.currentTarget) setShowModal(false); }}
-        >
-          <div style={{
-            background: '#fff',
-            borderRadius: '20px',
-            width: '100%',
-            maxWidth: '540px',
-            maxHeight: '90vh',
-            overflowY: 'auto',
-            boxShadow: '0 30px 60px rgba(0,0,0,0.4)',
-            animation: 'slideUp 0.25s ease'
-          }}>
-            {/* Header del modal */}
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              padding: '1.5rem 1.75rem',
-              borderBottom: '1px solid var(--gray-200)',
-              background: 'var(--gray-50)',
-              borderRadius: '20px 20px 0 0'
-            }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                <img src={logo} alt="AquaChile" style={{ height: '32px' }} />
-                <div>
-                  <h5 style={{ margin: 0, fontWeight: 700, color: 'var(--navy-900)' }}>Formulario de Postulación</h5>
-                  <p style={{ margin: 0, fontSize: '0.8125rem', color: 'var(--gray-600)' }}>AquaChile S.A.</p>
-                </div>
-              </div>
-              <button
-                onClick={() => setShowModal(false)}
-                style={{
-                  background: 'var(--gray-200)',
-                  border: 'none',
-                  borderRadius: '8px',
-                  width: '32px',
-                  height: '32px',
-                  cursor: 'pointer',
-                  fontSize: '1.1rem',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: 'var(--gray-700)',
-                  fontWeight: 700
-                }}
-              >
-                ✕
-              </button>
-            </div>
-
-            {/* Cuerpo del modal */}
-            <div style={{ padding: '1.75rem' }}>
-              <FormularioCandidato onSuccess={() => {}} />
-            </div>
-          </div>
-        </div>
-      )}
-
       <style>{`
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes cardIn {
+          from { transform: scale(0.95) translateY(15px); opacity: 0; }
+          to   { transform: scale(1) translateY(0); opacity: 1; }
+        }
         input::placeholder { color: rgba(255,255,255,0.45); }
       `}</style>
     </div>
