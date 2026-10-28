@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { candidatoService } from '../../services/candidatoService';
 import { cargos, familiasCargo } from '../../data/mock';
 
-function FormularioCandidato({ onSuccess }) {
+function FormularioCandidato() {
+  // Estado con los campos requeridos en la Sección 7.1 del anexo
   const [formData, setFormData] = useState({
     nombre: '',
     correo: '',
