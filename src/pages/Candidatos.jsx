@@ -7,19 +7,33 @@ export default function Candidatos() {
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
 
+  const cargarCandidatos = async () => {
+    try {
+      setLoading(true);
+      const data = await candidatoService.getAll();
+      setCandidatos(data);
+    } catch (error) {
+      console.error('Error al cargar candidatos:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        const data = await candidatoService.getAll();
-        setCandidatos(data);
-      } catch (error) {
-        console.error('Error al cargar candidatos:', error);
-      } finally {
-        setLoading(false);
-      }
+    cargarCandidatos();
+
+    // Escuchar cuando se agregue un nuevo candidato desde cualquier parte de la app
+    const handleActualizacion = () => {
+      cargarCandidatos();
     };
-    fetchData();
+
+    window.addEventListener('candidatos_actualizados', handleActualizacion);
+    window.addEventListener('storage', handleActualizacion);
+
+    return () => {
+      window.removeEventListener('candidatos_actualizados', handleActualizacion);
+      window.removeEventListener('storage', handleActualizacion);
+    };
   }, []);
 
   return (
@@ -27,10 +41,10 @@ export default function Candidatos() {
       <div className="d-flex justify-content-between align-items-center mb-4">
         <div>
           <h1 className="page-title">Candidatos</h1>
-          <p className="page-subtitle">Gestión de candidatos registrados</p>
+          <p className="page-subtitle">Gestión de candidatos registrados en el sistema ({candidatos.length})</p>
         </div>
         <button className="btn btn-primary" onClick={() => setShowModal(true)}>
-          <i className="bi bi-plus"></i> Nuevo Candidato
+          <i className="bi bi-plus-lg me-1"></i> Nuevo Candidato
         </button>
       </div>
 
@@ -38,7 +52,7 @@ export default function Candidatos() {
         <div className="card-body p-0">
           {loading ? (
             <div className="p-4 text-center">
-              <p className="text-muted">Cargando...</p>
+              <p className="text-muted">Cargando candidatos...</p>
             </div>
           ) : candidatos.length > 0 ? (
             <div className="table-responsive">
@@ -59,7 +73,11 @@ export default function Candidatos() {
                       <td className="fw-600">{c.nombre}</td>
                       <td>{c.correo}</td>
                       <td>{c.telefono}</td>
-                      <td>{c.cargoPostula}</td>
+                      <td>
+                        <span className="badge bg-light text-dark border">
+                          {c.cargoPostula}
+                        </span>
+                      </td>
                       <td>{c.familiaCargo}</td>
                       <td>{c.fechaRegistro}</td>
                     </tr>
@@ -84,8 +102,11 @@ export default function Candidatos() {
                 <h5 className="modal-title">Nuevo Candidato</h5>
                 <button type="button" className="btn-close" onClick={() => setShowModal(false)}></button>
               </div>
-              <div className="modal-body">
-                <Formulario />
+              <div className="modal-body p-4">
+                <Formulario onSuccess={() => {
+                  cargarCandidatos();
+                  setShowModal(false);
+                }} />
               </div>
             </div>
           </div>
