@@ -45,7 +45,7 @@ Automatizar el proceso completo con Forms, Power Automate, OneDrive/SharePoint y
 | **HTML** | 5 |
 | **CSS (Bootstrap)** | 5.3.8 |
 | **JavaScript (React)** | 19.2.8 |
-| **Oracle SQL Developer** | 24.3.1 |
+| **Persistencia Local (LocalStorage)** | HTML5 Web Storage |
 | **React Router DOM** | 7.18.4 |
 | **Vitest** | 5.0.5 |
 | **Vite** | 8.2.2 |
