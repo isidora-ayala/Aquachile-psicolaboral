@@ -31,9 +31,16 @@ Automatizar el proceso completo con Forms, Power Automate, OneDrive/SharePoint y
 | Benjamin Almonacid (Desarrollador FullStack) | benjamin-almonacid | Backend        |
 
 # Tecnologías Trabajadas
-| Nombre tecnología    | Versión       |
-|----------------------|---------------|
-| HTML                 | 5             |
-| CSS (bootstrap)      | 5.3.8         |
-| JavaScript (react)   | 19.2.8        |
-| Oracle sql Developer | 24.3.1.       |
+| Nombre tecnología    | Versión |
+|----------------------|---------|
+| HTML                 | 5       |
+| CSS (bootstrap)      | 5.3.8   |
+| JavaScript (react)   | 19.2.8  |
+| Oracle sql Developer | 24.3.1. |
+| React Router dom     | 7.18.3  |
+| Vitest               | 5.0.5   |
+| Vite                 | 8.2.2   |
+| Use stat             | 19.3.0  |
+| Layouts              | 7.18.4  |
+| React                | 19.3.0  |
+| Css                  | 5.3.8   |
