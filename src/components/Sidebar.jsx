@@ -8,7 +8,7 @@ export default function Sidebar() {
   if (!user) return null;
 
   return (
-    <aside style={{
+    <aside className="sidebar" style={{
       width: '260px',
       minWidth: '260px',
       height: '100vh',
@@ -66,6 +66,7 @@ export default function Sidebar() {
           <NavLink
             to="/"
             end
+            className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
             style={({ isActive }) => ({
               display: 'flex',
               alignItems: 'center',
@@ -87,6 +88,7 @@ export default function Sidebar() {
           {hasRole(['ANALISTA', 'ADMIN']) && (
             <NavLink
               to="/candidatos"
+              className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
               style={({ isActive }) => ({
                 display: 'flex',
                 alignItems: 'center',
@@ -109,6 +111,7 @@ export default function Sidebar() {
           {hasRole(['ANALISTA', 'EVALUADOR', 'ADMIN']) && (
             <NavLink
               to="/solicitudes"
+              className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
               style={({ isActive }) => ({
                 display: 'flex',
                 alignItems: 'center',

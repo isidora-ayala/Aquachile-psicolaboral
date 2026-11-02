@@ -1,69 +1,127 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import { formatDateDDMMYYYY, getEstadoLabel } from './utils/helpers';
+import userEvent from '@testing-library/user-event';
+import { MemoryRouter, Routes, Route } from 'react-router-dom';
+import { formatDateDDMMYYYY, getEstadoLabel, normalizarEmail } from './utils/helpers';
 import { authService } from './services/authService';
 import FormularioCandidato from './components/Formulario/formulario';
+import Sidebar from './components/Sidebar';
+import * as AuthContextModule from './context/AuthContext';
 
-describe('Suite de 5 Tests Esenciales para AquaChile', () => {
+// Helper de navegación con MemoryRouter (siguiendo Secciones 14 y 15 de la guía didáctica)
+function renderSidebarWithRouter(initialPath = '/') {
+  // Simulamos usuario administrador autenticado para ver todos los enlaces
+  vi.spyOn(AuthContextModule, 'useAuth').mockReturnValue({
+    user: { nombre: 'María González', email: 'analista@aquachile.cl', rol: 'ADMIN' },
+    logout: vi.fn(),
+    hasRole: () => true,
+    isAuthenticated: true,
+  });
+
+  return render(
+    <MemoryRouter initialEntries={[initialPath]}>
+      <Sidebar />
+      <Routes>
+        <Route path="/" element={<h1>Dashboard Page</h1>} />
+        <Route path="/candidatos" element={<h1>Candidatos Page</h1>} />
+        <Route path="/solicitudes" element={<h1>Solicitudes Page</h1>} />
+      </Routes>
+    </MemoryRouter>
+  );
+}
+
+describe('Suite de Pruebas Unitarias - AquaChile VcM (Guía Didáctica)', () => {
 
   // -------------------------------------------------------------
-  // TEST 1: Prueba de función pura (Fechas)
+  // SECCIÓN 3 y 5: Funciones Puras y Reto normalizarEmail
   // -------------------------------------------------------------
-  it('TEST 1: Debe formatear correctamente una fecha de YYYY-MM-DD a DD/MM/YYYY', () => {
-    // 1. Preparamos el dato de entrada
-    const fechaEntrada = '2026-10-28';
-    
-    // 2. Ejecutamos la función helper
-    const resultado = formatDateDDMMYYYY(fechaEntrada);
-    
-    // 3. Verificamos que el resultado sea el esperado
-    expect(resultado).toBe('28/10/2026');
+  describe('Reto Didáctico: Función normalizarEmail (Sección 5)', () => {
+    it('normaliza mayúsculas y elimina espacios iniciales/finales', () => {
+      expect(normalizarEmail('  ANALISTA@AQUACHILE.CL  ')).toBe('analista@aquachile.cl');
+    });
+
+    it('retorna string vacío si la entrada es vacía o nula', () => {
+      expect(normalizarEmail('')).toBe('');
+      expect(normalizarEmail(null)).toBe('');
+    });
+  });
+
+  describe('Helpers del Dominio AquaChile', () => {
+    it('formatea correctamente una fecha de YYYY-MM-DD a DD/MM/YYYY', () => {
+      expect(formatDateDDMMYYYY('2026-10-28')).toBe('28/10/2026');
+    });
+
+    it('transforma el código técnico "En_Proceso" a texto legible "En Proceso"', () => {
+      expect(getEstadoLabel('En_Proceso')).toBe('En Proceso');
+    });
   });
 
   // -------------------------------------------------------------
-  // TEST 2: Prueba de lógica condicional (Etiquetas de estado)
+  // SERVICIOS: Autenticación Asíncrona
   // -------------------------------------------------------------
-  it('TEST 2: Debe transformar el estado técnico "En_Proceso" a texto legible "En Proceso"', () => {
-    // Verificamos que devuelva el texto amigable para mostrar en la interfaz
-    const etiqueta = getEstadoLabel('En_Proceso');
-    expect(etiqueta).toBe('En Proceso');
+  describe('Servicio de Autenticación (authService)', () => {
+    it('inicia sesión exitosamente con credenciales correctas', async () => {
+      const respuesta = await authService.login('analista@aquachile.cl', '1234');
+      expect(respuesta.success).toBe(true);
+      expect(respuesta.user.rol).toBe('ANALISTA');
+    });
+
+    it('rechaza el inicio de sesión si la contraseña es incorrecta', async () => {
+      const respuesta = await authService.login('analista@aquachile.cl', 'clave_falsa_999');
+      expect(respuesta.success).toBe(false);
+      expect(respuesta.error).toBe('Credenciales inválidas');
+    });
   });
 
   // -------------------------------------------------------------
-  // TEST 3: Prueba asíncrona exitosa (Login con credenciales válidas)
+  // FORMULARIO: Renderizado con React Testing Library
   // -------------------------------------------------------------
-  it('TEST 3: Debe iniciar sesión exitosamente con credenciales correctas', async () => {
-    // Usamos el usuario mock analista configurado en el sistema
-    const respuesta = await authService.login('analista@aquachile.cl', '1234');
-
-    // Comprobamos que el resultado sea exitoso y traiga el rol correcto
-    expect(respuesta.success).toBe(true);
-    expect(respuesta.user.rol).toBe('ANALISTA');
+  describe('Formulario de Postulación', () => {
+    it('renderiza el formulario con su botón accesible de "Enviar Postulación"', () => {
+      render(<FormularioCandidato />);
+      const botonEnviar = screen.getByRole('button', { name: /enviar postulación/i });
+      expect(botonEnviar).toBeInTheDocument();
+    });
   });
 
   // -------------------------------------------------------------
-  // TEST 4: Prueba asíncrona de error (Login con contraseña incorrecta)
+  // SECCIONES 8-15: Test de Layout y Sidebar (MemoryRouter & userEvent)
   // -------------------------------------------------------------
-  it('TEST 4: Debe rechazar el inicio de sesión si la contraseña es incorrecta', async () => {
-    const respuesta = await authService.login('analista@aquachile.cl', 'clave_falsa_999');
+  describe('Test de Navegación y Sidebar (Secciones 8 a 15)', () => {
+    it('Caso 1 (Estructura): renderiza el elemento aside con la clase sidebar', () => {
+      renderSidebarWithRouter('/');
+      const sidebar = screen.getByRole('complementary');
+      expect(sidebar).toBeInTheDocument();
+      expect(sidebar).toHaveClass('sidebar');
+    });
 
-    // Comprobamos que no permita ingresar y retorne mensaje de error
-    expect(respuesta.success).toBe(false);
-    expect(respuesta.error).toBe('Credenciales inválidas');
-  });
+    it('Caso 2 (Rutas): muestra los enlaces con sus rutas href correctas', () => {
+      renderSidebarWithRouter('/');
+      expect(screen.getByRole('link', { name: /dashboard/i })).toHaveAttribute('href', '/');
+      expect(screen.getByRole('link', { name: /candidatos/i })).toHaveAttribute('href', '/candidatos');
+      expect(screen.getByRole('link', { name: /solicitudes/i })).toHaveAttribute('href', '/solicitudes');
+    });
 
-  // -------------------------------------------------------------
-  // TEST 5: Prueba de renderizado de componente React (Formulario de Postulación)
-  // -------------------------------------------------------------
-  it('TEST 5: Debe renderizar el formulario con su botón de "Enviar Postulación"', () => {
-    // 1. Dibujamos (renderizamos) el componente en el navegador virtual
-    render(<FormularioCandidato />);
+    it('Caso 3 (Ruta Activa): marca el enlace activo según la URL inicial', () => {
+      renderSidebarWithRouter('/candidatos');
+      const linkCandidatos = screen.getByRole('link', { name: /candidatos/i });
+      const linkDashboard = screen.getByRole('link', { name: /dashboard/i });
 
-    // 2. Buscamos el botón principal de enviar
-    const botonEnviar = screen.getByRole('button', { name: /enviar postulación/i });
+      expect(linkCandidatos).toHaveClass('active');
+      expect(linkDashboard).not.toHaveClass('active');
+    });
 
-    // 3. Verificamos que el botón existe y está visible en pantalla
-    expect(botonEnviar).toBeInTheDocument();
+    it('Caso 4 (El Clic con userEvent): navega y actualiza el enlace activo al hacer clic', async () => {
+      const user = userEvent.setup();
+      renderSidebarWithRouter('/');
+
+      const linkSolicitudes = screen.getByRole('link', { name: /solicitudes/i });
+      await user.click(linkSolicitudes);
+
+      // Verifica que el contenido de la ruta cambió y el link quedó activo
+      expect(screen.getByRole('heading', { name: 'Solicitudes Page' })).toBeInTheDocument();
+      expect(linkSolicitudes).toHaveClass('active');
+    });
   });
 
 });
