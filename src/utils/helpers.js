@@ -30,3 +30,12 @@ export const getEstadoLabel = (estado) => {
     default: return estado;
   }
 };
+
+/**
+ * Normaliza un correo electrónico eliminando espacios y convirtiendo a minúsculas.
+ * Reto final Clase Vitest: manejo de espacios, mayúsculas y entrada vacía.
+ */
+export const normalizarEmail = (email) => {
+  if (!email || typeof email !== 'string') return '';
+  return email.trim().toLowerCase();
+};

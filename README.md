@@ -50,6 +50,7 @@ Automatizar el proceso completo con Forms, Power Automate, OneDrive/SharePoint y
 | **Vitest** | 5.0.5 |
 | **Vite** | 8.2.2 |
 | **React Testing Library** | 16.3.3 |
+| **User Event (@testing-library/user-event)** | 14.6.1 |
 | **Bootstrap Icons** | 1.13.1 |
 | **JSDOM** | 30.1.3 |
 | **Recharts** | 3.10.1 |
@@ -100,12 +101,9 @@ Para levantar el servidor de desarrollo con Vite:
 npm run dev
 ```
 
-El terminal mostrará una URL local, por lo general:
+El terminal mostrará la URL local:
 ```text
-  VITE v8.2.2  ready in 400 ms
-
   ➜  Local:   http://localhost:5173/
-  ➜  Network: use --host to expose
 ```
 Abre esa dirección en tu navegador web para interactuar con la plataforma.
 
@@ -127,24 +125,35 @@ El sistema cuenta con control de acceso por roles (`AuthContext` y `ProtectedRou
 
 ### 5. Verificación de Calidad y Pruebas Unitarias (Vitest)
 
-Para verificar que todos los componentes, lógica de negocio y servicios operen correctamente según la pauta de evaluación de la **Clase 9**:
+Para verificar que todos los componentes, lógica de negocio, navegación y servicios operen correctamente según las pautas de las **Clases 7 a 9 (Guía Didáctica Duoc UC)**:
 
 Ejecutar la suite de pruebas unitarias:
 ```bash
 npm test -- --run
 ```
 
-#### Cobertura de los 5 Escenarios Verificados (`src/App.test.jsx`):
-1. **TEST 1 (Funciones Puras / Helpers):** Valida la conversión de fechas de formato ISO base de datos (`YYYY-MM-DD`) a formato chileno estándar (`DD/MM/YYYY`).
-2. **TEST 2 (Lógica Condicional de UI):** Valida que los códigos internos de estado (`En_Proceso`) se transformen a etiquetas amigables (`En Proceso`).
-3. **TEST 3 (Autenticación Asíncrona Exitosa):** Simula el login con credenciales válidas y verifica la respuesta afirmativa con asignación del rol `ANALISTA`.
-4. **TEST 4 (Seguridad y Rechazo):** Simula el ingreso con contraseña errónea y comprueba la denegación con el mensaje `'Credenciales inválidas'`.
-5. **TEST 5 (Renderizado React con Testing Library):** Renderiza en el DOM virtual el `<FormularioCandidato />` y valida que el botón de envío exista y esté visible.
+#### Cobertura de los 11 Escenarios Verificados (`src/App.test.jsx`):
+1. **Reto Didáctico (Función Pura `normalizarEmail` - Sección 5):**
+   - Normaliza mayúsculas y espacios en blanco (`ANALISTA@AQUACHILE.CL` -> `analista@aquachile.cl`).
+   - Manejo seguro de entradas vacías o nulas.
+2. **Helpers del Dominio AquaChile:**
+   - Formateo de fechas ISO a formato estándar chileno (`formatDateDDMMYYYY`).
+   - Transformación de estados técnicos a etiquetas legibles (`getEstadoLabel`).
+3. **Servicio de Autenticación Asíncrona (`authService`):**
+   - Inicio de sesión exitoso con rol `ANALISTA`.
+   - Rechazo de credenciales inválidas.
+4. **Formulario de Postulación:**
+   - Renderizado del botón accesible de envío (`screen.getByRole`).
+5. **Navegación y Layout (`Sidebar` con `MemoryRouter` y `userEvent` - Secciones 8 a 15 de la Guía):**
+   - **Caso 1 (Estructura):** Valida que renderice el elemento `aside` con la clase `sidebar`.
+   - **Caso 2 (Rutas):** Verifica que los enlaces apunten a los `href` correctos (`/`, `/candidatos`, `/solicitudes`).
+   - **Caso 3 (Ruta Activa):** Comprueba que `NavLink` aplique la clase `active` únicamente a la ruta en la que se encuentra el usuario.
+   - **Caso 4 (Interacción con `userEvent`):** Simula el clic de un usuario real, comprueba que la ruta cambie y que el enlace se marque como activo.
 
 Resultado esperado:
 ```text
  Test Files  1 passed (1)
-      Tests  5 passed (5)
+      Tests  11 passed (11)
 ```
 
 ---
